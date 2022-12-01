@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <functional>
 
 typedef void (*PFunc)(int);
 
 void DiceResult(int number) {
-
 	srand(time(nullptr));
 	int dice = rand() % 6 + 1;
 
@@ -16,18 +16,7 @@ void DiceResult(int number) {
 	else {
 		printf("はずれ\n");
 	}
-	printf("さいころの出目は%dでした\n", dice);
-}
-
-void SetTimeout(PFunc p, int second, int number) {
-	printf("結果...");
-
-	//コールバック関数を呼び出す
-	Sleep(second * 1000);
-
-	//macやUnix系OSの場合
-	//sleep(second);
-	p(number);
+	printf("サイコロの出目は%dでした\n", dice);
 };
 
 int main(void) {
@@ -36,14 +25,25 @@ int main(void) {
 
 	int number = 0;
 	int second = 3;
-	p = DiceResult;
 
 	printf("半(奇数)なら[1],丁(偶数)なら[0]を入力してください\n");
 
 	scanf_s("%d", &number);
 
+	std::function<void(PFunc, int)>SetTimeout = [=](PFunc p, int second) {
+		printf("結果...");
 
-	SetTimeout(p, second, number);
+		//コールバック関数を呼び出す
+		Sleep(second * 1000);
+
+		//macやUnix系OSの場合
+		//sleep(second);
+		p(number);
+	};
+
+	p = DiceResult;
+
+	SetTimeout(p, second);
 
 	return 0;
 
