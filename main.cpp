@@ -1,48 +1,50 @@
-#include<stdio.h>
-#include "math.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <time.h>
 
-//再帰的な賃金
-int RecoursiveSalary(int hour) {
+typedef void (*PFunc)(int);
 
-	if (hour == 1) {
-		return (100);
+void DiceResult(int number) {
+
+	srand(time(nullptr));
+	int dice = rand() % 6 + 1;
+
+	if (dice % 2 == number) {
+		printf("当たり\n");
 	}
-	return RecoursiveSalary(hour - 1) * 2 - 50;
-
+	else {
+		printf("はずれ\n");
+	}
+	printf("さいころの出目は%dでした\n", dice);
 }
 
-//賃金を比較する関数
-void comparison(int flat, int rec)
-{
-	//一般時給と再帰的な時給を比較する
-	int n = flat - rec;
-	//絶対値
-	n = abs(n);
-	if (flat > rec)
-	{
-		printf("一般のほうが%d円高い。\n\n", n);
-	}
-	else
-	{
-		printf("再帰的のほうが%d円高い。\n\n", n);
-	}
-}
+void SetTimeout(PFunc p, int second, int number) {
+	printf("結果...");
 
-int main() {
-	//一般的な賃金
-	int price = 0;
-	int hour = 1;
-	int result = 0;
+	//コールバック関数を呼び出す
+	Sleep(second * 1000);
+
+	//macやUnix系OSの場合
+	//sleep(second);
+	p(number);
+};
+
+int main(void) {
+
+	PFunc p;
+
+	int number = 0;
+	int second = 3;
+	p = DiceResult;
+
+	printf("半(奇数)なら[1],丁(偶数)なら[0]を入力してください\n");
+
+	scanf_s("%d", &number);
 
 
-	for (int i = 1; i < 10; i++) {
-		price += 1072;
-		printf("%d時間で%d円\n", i, price);
+	SetTimeout(p, second, number);
 
-		result += RecoursiveSalary(i);
-		printf("%d時間で%d円\n\n", i, result);
-
-		comparison(price, result);
-	}
 	return 0;
+
 }
