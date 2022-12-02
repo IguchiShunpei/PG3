@@ -1,43 +1,99 @@
 #include <stdio.h>
-#include <list>
-#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 
-using namespace std;
+//単方向リストの構造体
+typedef struct cell {
+	char str[8];
+	struct cell* next;
+}CELL;
+
+//データを追加
+void create(CELL* endlist, const char* buf);
+//一覧を表示
+void index(CELL* list);
+//削除
+void deleteCell(CELL* endlist);
 
 int main() {
-	list<const char*> Yamanote = { "Tokyo","Kanda","Akihabara","Okachimachi","Ueno",
-									  "Uguisudani","Nippori","Tabata","Komagome",
-									  "Sugamo","Otsuka","Ikebukuro","Mejiro" ,"Takadanobaba",
-									  "Shin-Okubo","Shinjuku","Yoyogi","Harajuku","Shibuya",
-									  "Ebisu","Meguro","Gotanda","Osaki","Shinagawa",
-									  "Tamachi","Hamamatsucho","Shimbashi","Yurakucho\n" };
-	// 出力
-	for (list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		cout << *itr << endl;
-	}
-	//西日暮里を挿入
-	for (list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		if (*itr == "Tabata") {
-			itr = Yamanote.insert(itr, "Nishi-Nippori");
-			++itr;
-		}
-	}
-	// 出力
-	for (list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		cout << *itr << endl;
-	}
+	char str[8];
+	int num = 0;
+	//先頭のセルを宣言
+	CELL head;
+	head.next = nullptr;
 
-	// 高輪ゲートウェイを挿入
-	for (list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		if (*itr == "Tamachi") {
-			itr = Yamanote.insert(itr, "Takanawa Gatewan");
-			++itr;
+	while (true) {
+
+		if (num == 0) {
+			printf("[要素の操作]\n");
+			printf("1.要素の一覧表示\n");
+			printf("2.最後尾に要素の挿入\n");
+			printf("3.最後尾の要素の削除\n\n");
+			printf("---------------------\n");
+			printf("操作を選択してください\n\n");
 		}
-	}
-	// 出力
-	for (list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		cout << *itr << endl;
+
+		scanf_s("%d", &num);
+
+		if (num == 1) {
+			printf("要素の一覧");
+			index(&head);
+			printf("0で初期画面に戻る\n");
+		}
+
+		if (num == 2) {
+			printf("入力した文字：");
+			scanf_s("%s", str, 8);
+			printf("\n");
+			create(&head, str);
+			printf("要素[%s]がリストに挿入されました\n\n", str);
+			printf("---------------------\n");
+			printf("0で初期画面に戻る\n\n");
+		}
+
+		if (num == 3) {
+			printf("要素の削除\n");
+			printf("------------------\n");
+			deleteCell(&head);
+		}
+
 	}
 	return 0;
+}
 
+//データの追加の定義
+void create(CELL* endlist, const char* buf) {
+	CELL* newCell;
+	newCell = (CELL*)malloc(sizeof(CELL));
+
+	assert(newCell);
+	strcpy_s(newCell->str, 8, buf);
+	newCell->next = nullptr;
+
+	while (endlist->next != nullptr) {
+		endlist = endlist->next;
+	}
+	endlist->next = newCell;
+}
+
+//一覧の表示の定義
+void index(CELL* endlist) {
+	int num = -1;
+	printf("\n{");
+	while (endlist->next != nullptr) {
+		num++;
+		endlist = endlist->next;
+		printf("\n%d:%s,", num, endlist->str);
+	}
+	printf("\n}\n\n");
+}
+
+//削除の定義
+void deleteCell(CELL* endlist) {
+	CELL* list;
+	list = endlist->next;
+	if (endlist->next != nullptr) {
+		list->next = nullptr;
+	}
 }
