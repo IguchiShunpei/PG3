@@ -16,12 +16,12 @@ int main() {
 	};
 	// 出力
 	cout << "-1970年-\n";
-	for (auto itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
+	for (list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
 	{
 		cout << *itr << endl;
 	}
-	//西日暮里を挿入
-	for (auto itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
+	//西日暮里を挿入(itaratorを移動させてinsert()を使う)
+	for (list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
 	{
 		if (*itr == "Tabata")
 		{
@@ -31,13 +31,13 @@ int main() {
 	}
 	// 出力
 	cout << "-2019年-\n";
-	for (auto itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
+	for (list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
 	{
 		cout << *itr << endl;
 	}
 
 	// 高輪ゲートウェイを挿入
-	for (auto itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
+	for (list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
 	{
 		if (*itr == "Tamachi")
 		{
@@ -47,7 +47,7 @@ int main() {
 	}
 	// 出力
 	cout << "-2022年-\n";
-	for (auto itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
+	for (list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end(); ++itr)
 	{
 		cout << *itr << endl;
 	}
