@@ -1,15 +1,35 @@
 #include <stdio.h>
-#include "Enemy.h"
-#include <windows.h>
+#include "IShape.h"
+#include "Rectangle.h"
+#include "Circle.h"
 
 int main()
 {
-	Enemy* enemy = new Enemy;
+	IShape* shapes[2];
 
-	while (true)
+
+	for (int i = 0; i < 2; i++)
 	{
-		enemy->Update();
-		Sleep(2 * 1000);
+		if (i < 1)
+		{
+			shapes[i] = new Circle;
+		}
+		else
+		{
+			shapes[i] = new Rectangle;
+		}
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		shapes[i]->Size();
+		shapes[i]->Draw();
+	}
+
+
+	for (int i = 0; i < 2; i++)
+	{
+		delete shapes[i];
 	}
 
 	return 0;
