@@ -7,7 +7,7 @@ class Rectangle : public IShape
 public:
 	Rectangle();
 	~Rectangle();
-	void Size();
-	void Draw();
+	void Size() override;　//オーバーライド
+	void Draw() override;
 };
 
