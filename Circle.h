@@ -7,7 +7,7 @@ class Circle : public IShape
 public:
 	Circle();
 	~Circle();
-	void Size() override; //オーバーライド
+	void Size() override;
 	void Draw() override;
 };
 
