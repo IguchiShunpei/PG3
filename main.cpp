@@ -5,7 +5,7 @@ int sceneNo = 0;
 
 int main() 
 {
-	//インスタンスを取得して、すぐ使用
+	//繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧貞叙蠕励＠縺ｦ縲√☆縺蝉ｽｿ逕ｨ
 	SceneManager::GetInstance()->ChangeScene(sceneNo);
 	
 	return 0;
